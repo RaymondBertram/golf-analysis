@@ -9,6 +9,10 @@
 # testing
 /coverage
 
+# docker
+docker-compose.yml
+schema.sql
+
 # next.js
 /.next/
 /out/

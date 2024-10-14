@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model duoresults {
+  id           String? @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  season_year  Int
+  result       Int?    @default(0)
+  albatros     Int?    @default(0)
+  eagle        Int?    @default(0)
+  birdie       Int?    @default(0)
+  par          Int?    @default(0)
+  bogey        Int?    @default(0)
+  double_bogey Int?    @default(0)
+  triple_bogey Int?    @default(0)
+  double_par   Int?    @default(0)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model golfclubs {
+  id          String?       @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  club_name   String        @db.VarChar(255)
+  player      player[]
+  teamresults teamresults[]
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model player {
+  id          String?       @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  first_name  String        @db.VarChar(255)
+  last_name   String        @db.VarChar(255)
+  golfclub_id String?       @db.Uuid
+  hcp         Decimal?      @db.Decimal(4, 2)
+  age         Int?
+  golfclubs   golfclubs?    @relation(fields: [golfclub_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  soloresults soloresults[]
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model soloresults {
+  id           String? @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  player_id    String? @db.Uuid
+  season_year  Int
+  result       Int?    @default(0)
+  albatros     Int?    @default(0)
+  eagle        Int?    @default(0)
+  birdie       Int?    @default(0)
+  par          Int?    @default(0)
+  bogey        Int?    @default(0)
+  double_bogey Int?    @default(0)
+  triple_bogey Int?    @default(0)
+  double_par   Int?    @default(0)
+  player       player? @relation(fields: [player_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model teamresults {
+  id           String?    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  golfclub_id  String?    @db.Uuid
+  season_year  Int
+  game_day     Int
+  solo_results Int?       @default(0)
+  duo_results  Int?       @default(0)
+  albatros     Int?       @default(0)
+  eagle        Int?       @default(0)
+  birdie       Int?       @default(0)
+  par          Int?       @default(0)
+  bogey        Int?       @default(0)
+  double_bogey Int?       @default(0)
+  triple_bogey Int?       @default(0)
+  double_par   Int?       @default(0)
+  golfclubs    golfclubs? @relation(fields: [golfclub_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@ignore
+}
+
+model users {
+  id         String? @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  first_name String  @db.VarChar(255)
+  last_name  String  @db.VarChar(255)
+  email      String  @unique @db.VarChar(255)
+  passwort   String  @db.VarChar(255)
+}
