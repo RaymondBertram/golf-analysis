@@ -1,3 +1,4 @@
+import React from "react";
 import type { Metadata } from "next";
 import Sidebar from "@/components/sidebar/sidebar.component";
 import localFont from "next/font/local";
