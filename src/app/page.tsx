@@ -1,13 +1,8 @@
 'use client';
-// import useAuthStore from '@/store';
 import { TableData } from '@/model';
-import { createClient } from '@supabase/supabase-js';
 import { Bar } from 'react-chartjs-2';
 
 export default function Home() {
-  // const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
-  // const { login, logout } = useAuthStore();
-
   const data = [
     {
       id: 1,
