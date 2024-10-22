@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer components {
+  .ge-container {
+    @apply mx-auto container;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

@@ -10,7 +10,7 @@ export default function Sidebar() {
       <div
         className={`fixed z-10 h-screen bg-gray-800 text-white transition-all duration-300 ${isOpen ? 'w-64' : 'w-0 overflow-hidden'}`}
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center p-4">
           <h1 className="m-2 font-bold">Sidebar</h1>
           <div className="mt-4">
             <Link href="#" className="text-white hover:text-gray-300">
